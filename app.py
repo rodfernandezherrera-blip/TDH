@@ -1,7 +1,16 @@
 
 import streamlit as st
 import math
+import streamlit as st
+from PIL import Image
 
+# 1. Configuración de página normal
+st.set_page_config(page_title="Calculadora TDH", page_icon="💧")
+
+# 2. TRUCO PARA IPHONE: Esto obliga a iOS a buscar tu foto para el icono de inicio
+st.markdown(f'''
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/rodfernandezherrera-blip/TDH/main/logo.png">
+''', unsafe_allow_html=True)
 st.set_page_config(page_title="Calculadora TDH", page_icon="b.png")
 
 # Esto ayuda a evitar el error de Safari en iPhones antiguos
