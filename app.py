@@ -9,7 +9,7 @@ st.set_page_config(page_title="Calculadora TDH", page_icon="💧")
 
 # 2. TRUCO PARA IPHONE: Esto obliga a iOS a buscar tu foto para el icono de inicio
 st.markdown(f'''
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/rodfernandezherrera-blip/TDH/main/logo.png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/rodfernandezherrera-blip/TDH/main/b.png">
 ''', unsafe_allow_html=True)
 st.set_page_config(page_title="Calculadora TDH", page_icon="b.png")
 
