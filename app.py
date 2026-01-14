@@ -2,8 +2,6 @@ import streamlit as st
 import math
 
 st.set_page_config(page_title="Calculadora TDH", page_icon="b.png")
-import streamlit as st
-st.set_page_config(page_title="Calculadora Hidráulica", page_icon="💧")
 
 # Esto ayuda a evitar el error de Safari en iPhones antiguos
 st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>', unsafe_allow_html=True)
