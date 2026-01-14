@@ -1,8 +1,14 @@
 import streamlit as st
 import math
 
-# Configuración de la página
+import streamlit as st
 st.set_page_config(page_title="Calculadora Hidráulica", page_icon="💧")
+
+# Esto ayuda a evitar el error de Safari en iPhones antiguos
+st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>', unsafe_allow_html=True)
+
+# Esto ayuda a evitar el error de Safari en iPhones antiguos
+st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>', unsafe_allow_html=True)
 
 st.title("🚀 Diseño Hidráulico Slatter & Wasp")
 
