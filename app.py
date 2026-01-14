@@ -1,6 +1,7 @@
 import streamlit as st
 import math
 
+st.set_page_config(page_title="Calculadora TDH", page_icon="icon.ico")
 import streamlit as st
 st.set_page_config(page_title="Calculadora Hidráulica", page_icon="💧")
 
