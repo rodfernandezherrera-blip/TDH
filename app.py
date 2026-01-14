@@ -9,7 +9,7 @@ st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}
 # Esto ayuda a evitar el error de Safari en iPhones antiguos
 st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>', unsafe_allow_html=True)
 
-st.title("🚀 Diseño Hidráulico Slatter & Wasp")
+st.title("Calculadora Hídraulica TDH: Agua- Pulpa Mineral")
 
 # --- BARRA LATERAL (ENTRADAS) ---
 st.sidebar.header("Configuración de Entrada")
