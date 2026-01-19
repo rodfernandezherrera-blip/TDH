@@ -17,7 +17,7 @@ st.markdown(f'''
     </style>
 ''', unsafe_allow_html=True)
 
-st.title("💧 Calculo TDH - Confiabilidad")
+st.title("💧 Calculo TDH - Tubería")
 st.markdown("---")
 
 # --- BLOQUE ÚNICO DE ENTRADA ---
