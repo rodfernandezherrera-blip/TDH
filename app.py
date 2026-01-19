@@ -18,7 +18,7 @@ st.markdown(f'''
     </style>
 ''', unsafe_allow_html=True)
 
-st.title("💧 Hidráulica TDH Pro")
+st.title("💧Calculadora Hidráulica Sistema de Impulsión")
 st.markdown("---")
 
 # --- BLOQUE ÚNICO DE ENTRADA ---
