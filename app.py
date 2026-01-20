@@ -14,10 +14,11 @@ st.markdown(f'''
         footer {{visibility: hidden;}}
         .stButton>button {{ width: 100%; border-radius: 12px; height: 3.5em; background-color: #1565C0; color: white; font-weight: bold; border: none; }}
         .result-card {{ background-color: #ffffff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px; border-left: 5px solid #1565C0; }}
+        .nota-informativa {{ font-size: 0.85em; color: #555; font-style: italic; margin-top: 5px; }}
     </style>
 ''', unsafe_allow_html=True)
 
-st.title("💧 Calculo TDH - Tubería")
+st.title("💧 Hidráulica TDH Pro")
 st.markdown("---")
 
 # --- BLOQUE ÚNICO DE ENTRADA ---
@@ -38,7 +39,17 @@ with col_f2:
         tau_y = st.number_input("Yield Stress (Pa)", value=5.0)
         mu_p = st.number_input("Viscosidad (Pa·s)", value=0.010, format="%.3f")
     
-    epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
+    # --- NUEVA SECCIÓN DE RUGOSIDAD POR MATERIAL ---
+    material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Otro (Manual)"])
+    
+    if material == "Acero":
+        epsilon_mm = 0.200
+        st.caption("Rugosidad asumida: 0.2 mm")
+    elif material == "HDPE":
+        epsilon_mm = 0.007
+        st.caption("Rugosidad asumida: 0.007 mm")
+    else:
+        epsilon_mm = st.number_input("Rugosidad Manual (mm)", value=0.045, format="%.3f")
 
 col_op1, col_op2 = st.columns(2)
 with col_op1:
@@ -76,8 +87,12 @@ if st.button("🚀 CALCULAR TDH"):
 
     J = f * (1 / D) * (V**2 / (2 * g))
     hf = J * L
-    tdh = dz + hf + (1.5 * (V**2 / (2 * g)))
-    presion = (tdh * rho * g) / 100000
+    
+    # --- APLICACIÓN DE FACTOR 1.10 (PÉRDIDAS SINGULARES) ---
+    tdh_calculado = dz + hf + (1.5 * (V**2 / (2 * g)))
+    tdh_final = tdh_calculado * 1.10
+    
+    presion = (tdh_final * rho * g) / 100000
 
     # --- PANEL DE RESULTADOS ---
     st.markdown("---")
@@ -92,13 +107,14 @@ if st.button("🚀 CALCULAR TDH"):
 
     c1, c2 = st.columns(2)
     c1.metric("Gradiente (J)", f"{J:.6f} m/m")
-    c1.metric("Pérdida (hf)", f"{hf:.2f} m")
+    c1.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
     
     c2.metric("Velocidad (V)", f"{V:.2f} m/s")
-    c2.metric("Presión", f"{presion:.2f} bar")
+    c2.metric("Presión Final", f"{presion:.2f} bar")
 
     st.divider()
-    st.markdown(f"### 🎯 TDH TOTAL: {tdh:.2f} mcp")
+    st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
+    st.markdown('<p class="nota-informativa">Nota: El TDH incluye un factor de 1.10 (10% adicional) por concepto de pérdidas de carga singulares.</p>', unsafe_allow_html=True)
 
 else:
     st.info("Ingrese los datos arriba y presione el botón para calcular.")
