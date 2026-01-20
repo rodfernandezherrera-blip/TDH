@@ -33,21 +33,19 @@ with col_f1:
 with col_f2:
     if tipo_fluido == "Agua":
         rho, tau_y, mu_p = 1000.0, 0.0, 0.001
-        st.info("💧 Agua: 1000kg/m³ | 0 Pa | 0.001Ps")
+        st.info("💧 Agua: 1000kg/m³ | 0 Pa | 0.001cP")
     else:
         rho = st.number_input("Densidad (kg/m³)", value=1250.0)
         tau_y = st.number_input("Yield Stress (Pa)", value=5.0)
         mu_p = st.number_input("Viscosidad (Pa·s)", value=0.010, format="%.3f")
     
-    # --- NUEVA SECCIÓN DE RUGOSIDAD POR MATERIAL ---
     material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Otro (Manual)"])
-    
     if material == "Acero":
         epsilon_mm = 0.200
-        st.caption("Rugosidad asumida: 0.2 mm")
+        st.caption("Rugosidad: 0.2 mm")
     elif material == "HDPE":
-        epsilon_mm = 0.05
-        st.caption("Rugosidad asumida: 0.007 mm")
+        epsilon_mm = 0.007
+        st.caption("Rugosidad: 0.007 mm")
     else:
         epsilon_mm = st.number_input("Rugosidad Manual (mm)", value=0.045, format="%.3f")
 
@@ -60,8 +58,8 @@ with col_op2:
 st.markdown(" ") 
 
 # --- EJECUCIÓN ---
-if st.button("🚀 CALCULAR TDH"):
-    # Lógica de cálculos
+if st.button("🚀 CALCULAR TDH Y POTENCIA"):
+    # Lógica de cálculos hidráulicos
     D = D_mm / 1000
     epsilon = epsilon_mm / 1000
     Q = Q_h / 3600
@@ -88,11 +86,18 @@ if st.button("🚀 CALCULAR TDH"):
     J = f * (1 / D) * (V**2 / (2 * g))
     hf = J * L
     
-    # --- APLICACIÓN DE FACTOR 1.10 (PÉRDIDAS SINGULARES) ---
+    # TDH con factor 1.10 por singulares
     tdh_calculado = dz + hf + (1.5 * (V**2 / (2 * g)))
     tdh_final = tdh_calculado * 1.10
     
     presion = (tdh_final * rho * g) / 100000
+
+    # --- CÁLCULO DE POTENCIA ---
+    # Eficiencia hidráulica 90%
+    eficiencia = 0.90
+    # Potencia (kW) = (Q[m3/s] * rho[kg/m3] * g[m/s2] * TDH[m]) / (1000 * eficiencia)
+    potencia_kw = (Q * rho * g * tdh_final) / (1000 * eficiencia)
+    potencia_hp = potencia_kw * 1.34102
 
     # --- PANEL DE RESULTADOS ---
     st.markdown("---")
@@ -105,16 +110,20 @@ if st.button("🚀 CALCULAR TDH"):
     </div>
     """, unsafe_allow_html=True)
 
-    c1, c2 = st.columns(2)
-    c1.metric("Gradiente (J)", f"{J:.6f} m/m")
-    c1.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("Gradiente (J)", f"{J:.6f} m/m")
+        st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
+        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
     
-    c2.metric("Velocidad (V)", f"{V:.2f} m/s")
-    c2.metric("Presión Final", f"{presion:.2f} bar")
+    with col_res2:
+        st.metric("Velocidad (V)", f"{V:.2f} m/s")
+        st.metric("Presión Final", f"{presion:.2f} bar")
+        st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
 
     st.divider()
     st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
-    st.markdown('<p class="nota-informativa">Nota: El TDH incluye un factor de 1.10 (10% adicional) por concepto de pérdidas de carga singulares.</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="nota-informativa">Nota: El TDH incluye un factor de 1.10 por pérdidas singulares. Potencia calculada con η = {int(eficiencia*100)}%.</p>', unsafe_allow_html=True)
 
 else:
     st.info("Ingrese los datos arriba y presione el botón para calcular.")
