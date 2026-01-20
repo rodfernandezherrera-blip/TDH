@@ -123,7 +123,7 @@ if st.button("🚀 CALCULAR TDH Y POTENCIA"):
         st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
     st.divider()
     st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
-    st.markdown(f'<p class="nota-informativa">Nota: El TDH incluye un factor de 1.05 por pérdidas singulares.       Potencia calculada con η = {int(eficiencia*100)}%.</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="nota-informativa">Nota: El TDH incluye un factor de 1.05 por pérdidas singulares.       Potencia calculada con una eficiencia bomba de η = {int(eficiencia*100)}%.</p>', unsafe_allow_html=True)
 
 else:
     st.info("Ingrese los datos arriba y presione el botón para calcular.")
