@@ -33,7 +33,7 @@ with col_f1:
 with col_f2:
     if tipo_fluido == "Agua":
         rho, tau_y, mu_p = 1000.0, 0.0, 0.001
-        st.info("💧 Agua: 1000kg/m³ | 0 Pa | 0.001cP")
+        st.info("💧 Agua: 1000kg/m³ | 0 Pa | 0.001Ps")
     else:
         rho = st.number_input("Densidad (kg/m³)", value=1250.0)
         tau_y = st.number_input("Yield Stress (Pa)", value=5.0)
