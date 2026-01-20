@@ -18,7 +18,7 @@ st.markdown(f'''
     </style>
 ''', unsafe_allow_html=True)
 
-st.title("💧 Hidráulica TDH Pro")
+st.title("💧 Calculadora TDH m")
 st.markdown("---")
 
 # --- BLOQUE ÚNICO DE ENTRADA ---
@@ -88,7 +88,7 @@ if st.button("🚀 CALCULAR TDH Y POTENCIA"):
     
     # TDH con factor 1.10 por singulares
     tdh_calculado = dz + hf + (1.5 * (V**2 / (2 * g)))
-    tdh_final = tdh_calculado * 1.10
+    tdh_final = tdh_calculado * 1.05
     
     presion = (tdh_final * rho * g) / 100000
 
@@ -123,7 +123,7 @@ if st.button("🚀 CALCULAR TDH Y POTENCIA"):
         st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
     st.divider()
     st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
-    st.markdown(f'<p class="nota-informativa">Nota: El TDH incluye un factor de 1.10 por pérdidas singulares. Potencia calculada con η = {int(eficiencia*100)}%.</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="nota-informativa">Nota: El TDH incluye un factor de 1.05 por pérdidas singulares.       Potencia calculada con η = {int(eficiencia*100)}%.</p>', unsafe_allow_html=True)
 
 else:
     st.info("Ingrese los datos arriba y presione el botón para calcular.")
