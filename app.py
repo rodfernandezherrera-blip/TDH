@@ -81,18 +81,24 @@ if opcion_menu == "Calculadora TDH":
         p_kw = (Q * rho * g * tdh_final) / (1000 * eficiencia)
         p_hp = p_kw * 1.341
 
-        st.markdown(f'<div class="result-card"><p style="margin:0; color:#666;">Estado de Flujo</p><h2 style="margin:0; color:{color_reg};">{regimen}</h2></div>', unsafe_allow_html=True)
-        c1, c2 = st.columns(2)
-        with col_res1:
+        st.markdown(f"""
+    <div class="result-card">
+        <p style="margin:0; color:#666;">Estado del Flujo</p>
+        <h2 style="margin:0; color:{color_reg};">{regimen}</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
         st.metric("Gradiente (J)", f"{J:.6f} m/m")
         st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
         
     
-        with col_res2:
+    with col_res2:
         st.metric("Velocidad (V)", f"{V:.2f} m/s")
         st.metric("Presión Final", f"{presion:.2f} bar")
         st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
-        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
+        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW"
         
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
