@@ -98,7 +98,7 @@ if opcion_menu == "Calculadora TDH":
         st.metric("Velocidad (V)", f"{V:.2f} m/s")
         st.metric("Presión Final", f"{presion:.2f} bar")
         st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
-        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW"
+        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
         
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
