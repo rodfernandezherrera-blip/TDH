@@ -45,7 +45,7 @@ with col_f2:
         st.caption("Rugosidad: 0.2 mm")
     elif material == "HDPE":
         epsilon_mm = 0.05
-        st.caption("Rugosidad: 0.007 mm")
+        st.caption("Rugosidad: 0.05 mm")
     else:
         epsilon_mm = st.number_input("Rugosidad Manual (mm)", value=0.045, format="%.3f")
 
