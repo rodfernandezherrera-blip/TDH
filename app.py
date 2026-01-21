@@ -85,21 +85,67 @@ if opcion_menu == "Calculadora TDH":
     st.markdown("---")
     st.subheader("📊 Resultados del Sistema")
     
-   st.markdown(
-    f"""
-    <div class="result-card">
-        <p style="margin:0; color:#666; font-size:14px;">Estado del Flujo</p>
-        <h2 style="margin:0; color:{color_reg}; font-weight:bold;">{regimen}</h2>
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
+   
 
 
-    col_res1, col_res2 = st.columns(2)
-    with col_res1:
-        st.metric("Gradiente (J)", f"{J:.6f} m/m")
-        st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
+   # 1. Inyección de Estilos CSS (Añade esto para que las clases funcionen)
+st.markdown("""
+    <style>
+    .result-card {
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #f0f2f6;
+        border-left: 5px solid #007BFF;
+        margin-bottom: 20px;
+    }
+    .nota-informativa {
+        color: #555;
+        font-size: 0.9rem;
+        font-style: italic;
+        background-color: #fff3cd;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- PANEL DE RESULTADOS ---
+st.divider()
+st.subheader("📊 Resultados del Sistema")
+
+# Tarjeta de Estado del Flujo
+st.markdown(f"""
+<div class="result-card">
+    <p style="margin:0; color:#666; font-weight:bold;">Estado del Flujo</p>
+    <h2 style="margin:0; color:{color_reg};">{regimen}</h2>
+</div>
+""", unsafe_allow_html=True)
+
+# Balance de columnas (Distribuido 3 y 3 para simetría)
+col_res1, col_res2 = st.columns(2)
+
+with col_res1:
+    st.metric("Gradiente (J)", f"{J:.6f} m/m")
+    st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
+    st.metric("Presión Final", f"{presion:.2f} bar")
+    
+with col_res2:
+    st.metric("Velocidad (V)", f"{V:.2f} m/s")
+    st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
+    st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
+
+st.divider()
+
+# Resaltado del TDH
+st.success(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
+
+# Nota informativa corregida
+st.markdown(f"""
+    <p class="nota-informativa">
+        <b>Nota:</b> El TDH incluye un factor de 1.05 por pérdidas singulares. 
+        Potencia calculada con una eficiencia de bomba de η = {int(eficiencia*100)}%.
+    </p>
+""", unsafe_allow_html=True)
 
         
         st.divider()
