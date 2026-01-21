@@ -46,9 +46,9 @@ if opcion_menu == "Calculadora TDH":
         
         material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Manual"])
         if material == "Acero": epsilon_mm = 0.200
-            st.caption("Rugosidad: 0.2 mm")
+        st.caption("Rugosidad: 0.2 mm")
         elif material == "HDPE": epsilon_mm = 0.05
-             st.caption("Rugosidad: 0.05 mm")
+        st.caption("Rugosidad: 0.05 mm")
         else: epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
 
     col_op1, col_op2 = st.columns(2)
