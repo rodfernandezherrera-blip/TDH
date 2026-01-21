@@ -85,7 +85,16 @@ if opcion_menu == "Calculadora TDH":
     st.markdown("---")
     st.subheader("📊 Resultados del Sistema")
     
-    st.markdown(f"""<div class="result-card"><p style="margin:0; color:#666;">Estado del Flujo</p><h2 style="margin:0; color:{color_reg};">{regimen}</h2></div>""", unsafe_allow_html=True)
+   st.markdown(
+    f"""
+    <div class="result-card">
+        <p style="margin:0; color:#666; font-size:14px;">Estado del Flujo</p>
+        <h2 style="margin:0; color:{color_reg}; font-weight:bold;">{regimen}</h2>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
+
 
     col_res1, col_res2 = st.columns(2)
     with col_res1:
