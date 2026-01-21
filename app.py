@@ -27,7 +27,7 @@ st.markdown("---")
 # MÓDULO 1: CALCULADORA TDH
 # ==========================================
 if opcion_menu == "Calculadora TDH":
-    st.subheader("💧 Cálculo de TDH Pro")
+    st.subheader("💧 Cálculo de TDH m")
     
     col_f1, col_f2 = st.columns(2)
     with col_f1:
@@ -82,8 +82,8 @@ if opcion_menu == "Calculadora TDH":
         st.markdown(f'<div class="result-card"><p style="margin:0; color:#666;">Estado de Flujo</p><h2 style="margin:0; color:{color_reg};">{regimen}</h2></div>', unsafe_allow_html=True)
         c1, c2 = st.columns(2)
         c1.metric("Gradiente (J)", f"{J:.6f} m/m")
-        c1.metric("Potencia (kW)", f"{p_kw:.2f} kW")
         c2.metric("Velocidad (V)", f"{V:.2f} m/s")
+        c1.metric("Potencia (kW)", f"{p_kw:.2f} kW")
         c2.metric("Potencia (HP)", f"{p_hp:.2f} HP")
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
