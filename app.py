@@ -94,12 +94,13 @@ if opcion_menu == "Calculadora TDH":
         with col_res1:
             st.metric("Gradiente (J)", f"{J:.6f} m/m")
             st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
-            st.metric("Potencia al Eje (kW)", f"{p_kw:.2f} kW")
+            
         
         with col_res2:
             st.metric("Velocidad (V)", f"{V:.2f} m/s")
             st.metric("Presión Final", f"{presion:.2f} bar")
             st.metric("Potencia al Eje (HP)", f"{p_hp:.2f} HP")
+            st.metric("Potencia al Eje (kW)", f"{p_kw:.2f} kW")
         
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
