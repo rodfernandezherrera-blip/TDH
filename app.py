@@ -81,7 +81,7 @@ if opcion_menu == "Calculadora TDH":
         p_kw = (Q * rho * g * tdh_final) / (1000 * eficiencia)
         p_hp = p_kw * 1.341
         
-st.markdown(f"""
+    st.markdown(f"""
     <div class="result-card">
         <p style="margin:0; color:#666;">Estado del Flujo</p>
         <h2 style="margin:0; color:{color_reg};">{regimen}</h2>
