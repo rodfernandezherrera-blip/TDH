@@ -46,7 +46,9 @@ if opcion_menu == "Calculadora TDH":
         
         material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Manual"])
         if material == "Acero": epsilon_mm = 0.200
-        elif material == "HDPE": epsilon_mm = 0.007
+            st.caption("Rugosidad: 0.2 mm")
+        elif material == "HDPE": epsilon_mm = 0.05
+             st.caption("Rugosidad: 0.05 mm")
         else: epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
 
     col_op1, col_op2 = st.columns(2)
@@ -82,6 +84,7 @@ if opcion_menu == "Calculadora TDH":
         st.markdown(f'<div class="result-card"><p style="margin:0; color:#666;">Estado de Flujo</p><h2 style="margin:0; color:{color_reg};">{regimen}</h2></div>', unsafe_allow_html=True)
         c1, c2 = st.columns(2)
         c1.metric("Gradiente (J)", f"{J:.6f} m/m")
+        st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
         c2.metric("Velocidad (V)", f"{V:.2f} m/s")
         c1.metric("Potencia (kW)", f"{p_kw:.2f} kW")
         c2.metric("Potencia (HP)", f"{p_hp:.2f} HP")
