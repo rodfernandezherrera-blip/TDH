@@ -27,7 +27,7 @@ st.markdown("---")
 # MÓDULO 1: CALCULADORA TDH
 # ==========================================
 if opcion_menu == "Calculadora TDH":
-    st.subheader("💧 Cálculo de TDH m")
+    st.subheader("💧 Cálculo de TDH")
     
     col_f1, col_f2 = st.columns(2)
     with col_f1:
@@ -45,11 +45,12 @@ if opcion_menu == "Calculadora TDH":
             mu_p = st.number_input("Viscosidad (Pa·s)", value=0.010, format="%.3f")
         
         material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Manual"])
-        if material == "Acero": epsilon_mm = 0.200
-            
-        elif material == "HDPE": epsilon_mm = 0.05
-           
-        else: epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
+        if material == "Acero": 
+            epsilon_mm = 0.200
+        elif material == "HDPE": 
+            epsilon_mm = 0.05
+        else: 
+            epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
 
     col_op1, col_op2 = st.columns(2)
     with col_op1: Q_h = st.number_input("Caudal (m³/h)", value=50.0)
@@ -75,34 +76,36 @@ if opcion_menu == "Calculadora TDH":
 
         J = f * (1 / D) * (V**2 / (2 * g))
         hf = J * L
-        tdh_final = (dz + hf + (1.5 * (V**2 / (2 * g)))) * 1.05
+        tdh_final = (dz + hf + (1.5 * (V**2 / (2 * g)))) * 1.10 # Cambiado a 1.10 según tu instrucción previa
         presion = (tdh_final * rho * g) / 100000
         eficiencia = 0.90
         p_kw = (Q * rho * g * tdh_final) / (1000 * eficiencia)
         p_hp = p_kw * 1.341
-        
-    st.markdown(f"""
-    <div class="result-card">
-        <p style="margin:0; color:#666;">Estado del Flujo</p>
-        <h2 style="margin:0; color:{color_reg};">{regimen}</h2>
-    </div>
-    """, unsafe_allow_html=True)
 
-    col_res1, col_res2 = st.columns(2)
-    with col_res1:
-        st.metric("Gradiente (J)", f"{J:.6f} m/m")
-        st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
-        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
-    
-    with col_res2:
-        st.metric("Velocidad (V)", f"{V:.2f} m/s")
-        st.metric("Presión Final", f"{presion:.2f} bar")
-        st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
+        # --- RESULTADOS (Dentro del IF) ---
+        st.markdown(f"""
+        <div class="result-card">
+            <p style="margin:0; color:#666;">Estado del Flujo</p>
+            <h2 style="margin:0; color:{color_reg};">{regimen}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col_res1, col_res2 = st.columns(2)
+        with col_res1:
+            st.metric("Gradiente (J)", f"{J:.6f} m/m")
+            st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
+            st.metric("Potencia al Eje (kW)", f"{p_kw:.2f} kW")
+        
+        with col_res2:
+            st.metric("Velocidad (V)", f"{V:.2f} m/s")
+            st.metric("Presión Final", f"{presion:.2f} bar")
+            st.metric("Potencia al Eje (HP)", f"{p_hp:.2f} HP")
+        
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
         st.markdown('<p class="nota-informativa">Nota: Incluye factor 1.10 por singulares y η=90%.</p>', unsafe_allow_html=True)
-         
-
+    else:
+        st.info("Configure los datos y presione Calcular.")
 
 # ==========================================
 # MÓDULO 2: BALANCE DE MASA
@@ -122,7 +125,6 @@ elif opcion_menu == "Balance de Masa":
     if tipo_calc == "Directo (TMS a Flujo)":
         tms_in = st.number_input("Tonelaje Seco (TMS t/h)", value=100.0)
         if st.button("CALCULAR FLUJO"):
-            # Lógica Directa
             f_agua = tms_in * (1 - cp/100) / (cp/100)
             vol_sol = tms_in / ge
             q_pulpa = vol_sol + f_agua
@@ -137,7 +139,6 @@ elif opcion_menu == "Balance de Masa":
     else:
         qp_in = st.number_input("Flujo de Pulpa (m³/h)", value=150.0)
         if st.button("CALCULAR TMS"):
-            # Lógica Inversa
             tms_out = qp_in / ((1/ge) + ((100 - cp) / cp))
             f_agua = qp_in - (tms_out / ge)
             rho_pulpa = (tms_out + f_agua) / qp_in
