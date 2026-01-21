@@ -46,9 +46,9 @@ if opcion_menu == "Calculadora TDH":
         
         material = st.selectbox("Material de Tubería", ["Acero", "HDPE", "Manual"])
         if material == "Acero": epsilon_mm = 0.200
-            st.caption("Rugosidad: 0.2 mm")
+            
         elif material == "HDPE": epsilon_mm = 0.05
-            st.caption("Rugosidad: 0.05 mm")
+           
         else: epsilon_mm = st.number_input("Rugosidad (mm)", value=0.045, format="%.3f")
 
     col_op1, col_op2 = st.columns(2)
@@ -75,7 +75,7 @@ if opcion_menu == "Calculadora TDH":
 
         J = f * (1 / D) * (V**2 / (2 * g))
         hf = J * L
-        tdh_final = (dz + hf + (1.5 * (V**2 / (2 * g)))) * 1.10
+        tdh_final = (dz + hf + (1.5 * (V**2 / (2 * g)))) * 1.05
         presion = (tdh_final * rho * g) / 100000
         eficiencia = 0.90
         p_kw = (Q * rho * g * tdh_final) / (1000 * eficiencia)
@@ -90,7 +90,7 @@ if opcion_menu == "Calculadora TDH":
         c2.metric("Potencia (HP)", f"{p_hp:.2f} HP")
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
-        st.markdown('<p class="nota-informativa">Nota: Incluye factor 1.10 por singulares y η=90%.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="nota-informativa">Nota:Rugosidad acero 0.2 mm, Rugosidad HDPE 0.05 mm Incluye factor 1.05 por singulares, eficiencia bomba η=90%.</p>', unsafe_allow_html=True)
 
 # ==========================================
 # MÓDULO 2: BALANCE DE MASA
