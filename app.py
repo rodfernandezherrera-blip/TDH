@@ -83,11 +83,17 @@ if opcion_menu == "Calculadora TDH":
 
         st.markdown(f'<div class="result-card"><p style="margin:0; color:#666;">Estado de Flujo</p><h2 style="margin:0; color:{color_reg};">{regimen}</h2></div>', unsafe_allow_html=True)
         c1, c2 = st.columns(2)
-        c1.metric("Gradiente (J)", f"{J:.6f} m/m")
+        with col_res1:
+        st.metric("Gradiente (J)", f"{J:.6f} m/m")
         st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
-        c2.metric("Velocidad (V)", f"{V:.2f} m/s")
-        c1.metric("Potencia (kW)", f"{p_kw:.2f} kW")
-        c2.metric("Potencia (HP)", f"{p_hp:.2f} HP")
+        
+    
+        with col_res2:
+        st.metric("Velocidad (V)", f"{V:.2f} m/s")
+        st.metric("Presión Final", f"{presion:.2f} bar")
+        st.metric("Potencia al Eje (HP)", f"{potencia_hp:.2f} HP")
+        st.metric("Potencia al Eje (kW)", f"{potencia_kw:.2f} kW")
+        
         st.divider()
         st.markdown(f"### 🎯 TDH TOTAL: {tdh_final:.2f} mcp")
         st.markdown('<p class="nota-informativa">Nota:Rugosidad acero 0.2 mm, Rugosidad HDPE 0.05 mm Incluye factor 1.05 por singulares, eficiencia bomba η=90%.</p>', unsafe_allow_html=True)
