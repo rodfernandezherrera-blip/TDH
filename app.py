@@ -92,7 +92,6 @@ if opcion_menu == "Calculadora TDH":
     with col_res1:
         st.metric("Gradiente (J)", f"{J:.6f} m/m")
         st.metric("Pérdida Fricción (hf)", f"{hf:.2f} m")
-        
     
     with col_res2:
         st.metric("Velocidad (V)", f"{V:.2f} m/s")
