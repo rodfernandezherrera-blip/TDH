@@ -1,6 +1,36 @@
 import streamlit as st
 import math
 
+# 1. Configuración de la pestaña e Icono para navegadores
+st.set_page_config(page_title="Calculadora Hidráulica", page_icon="b.PNG", layout="centered")
+
+# 2. TRUCO MAESTRO PARA EL ICONO EN IPHONE (Safari)
+# Esto fuerza a iOS a usar tu imagen b.PNG como icono de aplicación
+st.markdown(f'''
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/rodfernandezherrera-blip/TDH/main/b.PNG">
+    <link rel="apple-touch-icon-precomposed" href="https://raw.githubusercontent.com/rodfernandezherrera-blip/TDH/main/b.PNG">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        #MainMenu {{visibility: hidden;}}
+        footer {{visibility: hidden;}}
+        .stButton>button {{ width: 100%; border-radius: 12px; height: 3.5em; background-color: #1565C0; color: white; font-weight: bold; border: none; }}
+        .result-card {{ background-color: #ffffff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px; border-left: 5px solid #1565C0; }}
+    </style>
+''', unsafe_allow_html=True)
+
+# --- CONTINUACIÓN DEL CÓDIGO ---
+st.title("⚒️ Suite Hidráulica")
+opcion_menu = st.radio("Seleccione el módulo de cálculo:", ["Calculadora TDH", "Balance de Masa"], horizontal=True)
+st.markdown("---")
+
+# [El resto del código de TDH y Balance de Masa se mantiene igual abajo...]
+
+
+
+import streamlit as st
+import math
+
 # 1. Configuración de la pestaña e Icono
 st.set_page_config(page_title="Hidráulica Pro", page_icon="b.PNG", layout="centered")
 
